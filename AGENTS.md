@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- File transfers go through server functions in `src/lib/transfers.functions.ts`: the browser never reads the transfer tables directly; it gets signed upload/download slots by code. Why: a 6-digit code is the only access key, so listing transfers must stay impossible.
+- Shared limits and code rules live in `src/lib/transfer-rules.ts` (used by both browser and server) and are covered by `src/test/transfer-rules.test.ts`.

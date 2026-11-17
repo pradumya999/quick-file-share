@@ -294,3 +294,10 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
 }
+
+/* Real transfer additions */
+.share-link-row { display: flex; align-items: center; gap: 0.55rem; margin-top: 0.8rem; padding: 0.45rem 0.45rem 0.45rem 0.75rem; border: 1px solid var(--border); border-radius: 0.4rem; background: var(--card); }
+.share-link-icon { flex: 0 0 auto; color: var(--primary); }
+.share-link-text { min-width: 0; flex: 1; overflow: hidden; color: var(--foreground); font-family: var(--font-mono); font-size: 0.74rem; text-overflow: ellipsis; white-space: nowrap; }
+.start-over { margin-top: 0.7rem; padding-inline: 0.4rem; color: var(--muted-foreground); }
+.received-block { width: min(100%, 34rem); margin-top: 1.6rem; text-align: left; }

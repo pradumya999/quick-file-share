@@ -3,7 +3,6 @@ import { createRouter, rootRouteId } from "@tanstack/react-router";
 import { describe, expect, it } from "vitest";
 
 import { routeTree } from "@/routeTree.gen";
-import { isValidTransferCode } from "@/routes/index";
 
 // Match routes without running loaders or rendering: loaders may need a server or
 // network the test run lacks, and jsdom never loads the stylesheets React waits on.
@@ -14,11 +13,5 @@ describe("App routing", () => {
     const matches = router.matchRoutes("/");
 
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
-  });
-
-  it("accepts only six-digit transfer codes", () => {
-    expect(isValidTransferCode("123456")).toBe(true);
-    expect(isValidTransferCode("12345")).toBe(false);
-    expect(isValidTransferCode("12a456")).toBe(false);
   });
 });

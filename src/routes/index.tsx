@@ -21,6 +21,10 @@ export const Route = createFileRoute("/")({
 
 type Mode = "send" | "receive";
 
+export function isValidTransferCode(code: string) {
+  return /^\d{6}$/.test(code);
+}
+
 function formatBytes(bytes: number) {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
@@ -76,7 +80,7 @@ function Index() {
 
   function validateCode(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setReceiveMessage(/^\d{6}$/.test(receiveCode) ? "Code accepted for this demo. Files are not sent between devices." : "Enter a valid 6-digit code.");
+    setReceiveMessage(isValidTransferCode(receiveCode) ? "Code accepted for this demo. Files are not sent between devices." : "Enter a valid 6-digit code.");
   }
 
   return (
@@ -105,12 +109,12 @@ function Index() {
 
         <section className="transfer-panel" aria-label="File transfer">
           <div className="mode-tabs" role="tablist" aria-label="Transfer mode">
-            <button className={`mode-tab ${mode === "send" ? "mode-tab-active" : ""}`} onClick={() => changeMode("send")} role="tab" aria-selected={mode === "send"} type="button">
+            <Button variant="ghost" className={`mode-tab ${mode === "send" ? "mode-tab-active" : ""}`} onClick={() => changeMode("send")} role="tab" aria-selected={mode === "send"} type="button">
               <ArrowRight size={17} /> Send files
-            </button>
-            <button className={`mode-tab ${mode === "receive" ? "mode-tab-active" : ""}`} onClick={() => changeMode("receive")} role="tab" aria-selected={mode === "receive"} type="button">
+            </Button>
+            <Button variant="ghost" className={`mode-tab ${mode === "receive" ? "mode-tab-active" : ""}`} onClick={() => changeMode("receive")} role="tab" aria-selected={mode === "receive"} type="button">
               <ArrowDownToLine size={17} /> Receive files
-            </button>
+            </Button>
           </div>
 
           {mode === "send" ? (
@@ -132,7 +136,7 @@ function Index() {
                   <ul className="file-list">
                     {files.map((file, index) => {
                       const Icon = fileIcon(file.name);
-                      return <li className="file-row" key={`${file.name}-${file.size}-${index}`}><span className="file-type-icon"><Icon size={18} /></span><span className="file-detail"><span className="file-name">{file.name}</span><span className="file-size">{formatBytes(file.size)}</span></span><button className="remove-file" type="button" aria-label={`Remove ${file.name}`} onClick={() => { setFiles((current) => current.filter((_, itemIndex) => itemIndex !== index)); setTransferCode(""); }}><X size={17} /></button></li>;
+                      return <li className="file-row" key={`${file.name}-${file.size}-${index}`}><span className="file-type-icon"><Icon size={18} /></span><span className="file-detail"><span className="file-name">{file.name}</span><span className="file-size">{formatBytes(file.size)}</span></span><Button variant="ghost" size="icon" className="remove-file" type="button" aria-label={`Remove ${file.name}`} onClick={() => { setFiles((current) => current.filter((_, itemIndex) => itemIndex !== index)); setTransferCode(""); }}><X size={17} /></Button></li>;
                     })}
                   </ul>
                   {transferCode ? (

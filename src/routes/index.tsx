@@ -89,7 +89,7 @@ function Index() {
         <header className="flex items-center justify-between">
           <a className="brand-lockup" href="/" aria-label="Send Anywhere home">
             <span className="brand-mark" aria-hidden="true"><ArrowRight size={20} strokeWidth={2.7} /><ArrowLeft size={16} strokeWidth={2.7} /></span>
-            <span className="font-display text-lg font-bold tracking-tight">send<span className="brand-name-light">anywhere</span></span>
+          <span className="font-display text-lg font-bold">send<span className="brand-name-light">anywhere</span></span>
           </a>
           <span className="header-note hidden sm:block">A small file-sharing demo</span>
         </header>
